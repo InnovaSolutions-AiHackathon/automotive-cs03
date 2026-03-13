@@ -1,0 +1,5 @@
+Vehicle Warranty Policy
+
+Powertrain warranty: 5 years or 100,000 km
+Battery warranty: 8 years or 160,000 km
+Basic vehicle warranty: 3 years or 60,000 km
