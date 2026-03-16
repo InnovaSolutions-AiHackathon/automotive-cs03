@@ -1,0 +1,331 @@
+/* MAIN CARD */
+
+.vehicle-card {
+
+  border-radius: 16px;
+
+  padding: 20px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(17,24,39,0.9),
+      rgba(2,6,23,0.95)
+    );
+
+  backdrop-filter: blur(12px);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.7),
+    inset 0 1px rgba(255,255,255,0.04);
+
+  color: white;
+
+}
+
+/* LOADING */
+
+.loading {
+  color: #94a3b8;
+}
+
+/* HEADER */
+
+.vehicle-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 16px;
+
+}
+
+/* TITLE */
+
+.vehicle-title {
+
+  font-size: 18px;
+
+  font-weight: 700;
+
+  letter-spacing: .3px;
+
+}
+
+/* VIN */
+
+.vehicle-meta {
+
+  font-size: 12px;
+
+  color: #94a3b8;
+
+  margin-top: 2px;
+
+}
+
+/* ODOMETER BADGE */
+
+.odometer {
+
+  background:
+    linear-gradient(135deg,#6366f1,#9333ea);
+
+  padding: 6px 12px;
+
+  border-radius: 8px;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  box-shadow:
+    0 6px 18px rgba(124,58,237,.4);
+
+}
+
+/* STATS GRID */
+
+.stats-grid {
+
+  display: grid;
+
+  grid-template-columns: repeat(4,1fr);
+
+  gap: 10px;
+
+  margin-bottom: 14px;
+
+}
+
+/* STAT CARD */
+
+.stat-card {
+
+  padding: 14px;
+
+  border-radius: 12px;
+
+  background: rgba(30,41,59,0.55);
+
+  border: 1px solid rgba(255,255,255,0.05);
+
+  text-align: center;
+
+  transition: all .2s ease;
+
+}
+
+.stat-card:hover {
+
+  transform: translateY(-3px);
+
+  background: rgba(51,65,85,0.6);
+
+}
+
+/* ALERT CARD */
+
+.stat-card.alert {
+
+  background: rgba(127,29,29,.35);
+
+  border: 1px solid rgba(239,68,68,.5);
+
+}
+
+/* ICON */
+
+.stat-icon {
+
+  font-size: 20px;
+
+  margin-bottom: 4px;
+
+}
+
+/* LABEL */
+
+.stat-label {
+
+  font-size: 11px;
+
+  color: #94a3b8;
+
+}
+
+/* VALUE */
+
+.stat-value {
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  margin-top: 3px;
+
+}
+
+.stat-card.alert .stat-value {
+
+  color: #f87171;
+
+}
+
+/* ============================
+   ACTIVE FAULT CARD DESIGN
+   ============================ */
+.fault-card {
+  margin-top: 12px;
+  padding: 14px 16px;
+
+  border-radius: 12px;
+
+  /* Deep red warning background */
+  background: rgba(127, 29, 29, 0.25);
+
+  /* Proper outline */
+  border: 1px solid rgba(239, 68, 68, 0.55);
+
+  /* Subtle elevation */
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.05),
+    0 8px 22px rgba(0,0,0,0.45),
+    inset 0 1px rgba(255,255,255,0.05);
+
+  backdrop-filter: blur(8px);
+
+  color: #ffe4e4;
+  font-size: 14px;
+}
+
+/* HEADER SECTION */
+.fault-card__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.fault-card__icon {
+  font-size: 20px;
+}
+
+.fault-card__title {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+/* FAULT CODE LIST */
+.fault-card__codes {
+  margin-top: 8px;
+  font-weight: 600;
+  color: #fca5a5; /* soft red */
+}
+
+/* Hover improvement */
+.fault-card:hover {
+  border-color: rgba(239, 68, 68, 0.7);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.1),
+    0 12px 28px rgba(0,0,0,0.55),
+    inset 0 1px rgba(255,255,255,0.07);
+  transition: all .15s ease;
+}
+
+/* Optional: focus outline for accessibility */
+.fault-card:focus-within {
+  outline: 2px solid #fb7185;
+  outline-offset: 3px;
+}
+
+
+/* ================================
+   WARRANTY CARD BASE STYLE
+   ================================ */
+.warranty-card {
+  margin-top: 14px;
+  padding: 14px 16px;
+  border-radius: 12px;
+
+  background: rgba(3, 28, 99, 0.25);
+  border: 1px solid rgba(6, 57, 72, 0.55);
+
+  backdrop-filter: blur(10px);
+
+  /* Proper outline effect */
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 8px 24px rgba(0, 0, 0, 0.35);
+
+  font-size: 14px;
+  color: #fff;
+}
+
+/* Header area */
+.warranty-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.warranty-card__label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #cdd9ff;
+  letter-spacing: 0.5px;
+}
+
+/* Badge styling */
+.warranty-card__badge {
+  padding: 6px 12px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+/* COLORS */
+.badge-success {
+  background: rgba(34, 197, 94, 0.2);
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  color: #4ade80;
+}
+
+.badge-danger {
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #f87171;
+}
+
+/* Content rows */
+.warranty-card__body {
+  display: grid;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.warranty-card__row strong {
+  color: #d1e8ff;
+}
+
+/* OPTIONAL Hover lift */
+.warranty-card:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 12px 28px rgba(0, 0, 0, 0.45);
+  transition: all 0.15s ease;
+}
+
+/* OPTIONAL Focus outline (accessibility) */
+.warranty-card:focus-within {
+  outline: 2px solid #38bdf8;
+  outline-offset: 3px;
+}

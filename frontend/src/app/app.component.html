@@ -1,0 +1,22 @@
+
+<header class="app-header">
+  <nav class="top-nav container">
+    <a class="brand" routerLink="/">CCA (Customer Conversation Assistant)</a>
+
+    <!-- Mobile menu toggle (no JS needed if you prefer static; wire up later if needed) -->
+    <input id="menu-toggle" type="checkbox" class="menu-toggle" aria-label="Toggle navigation">
+    <label for="menu-toggle" class="burger" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </label>
+
+    <div class="links">
+      <a routerLink="/">Dashboard</a>
+      <a routerLink="/copilot" routerLinkActive="active">AI Copilot</a>
+    </div>
+  </nav>
+</header>
+
+<main class="container main-content">
+  <router-outlet></router-outlet>
+</main>
+

@@ -1,0 +1,98 @@
+<div class="vehicle-card">
+
+  <div *ngIf="loading" class="loading">
+    Loading vehicle...
+  </div>
+
+  <ng-container *ngIf="vehicle">
+
+    <!-- HEADER -->
+    <div class="vehicle-header">
+
+      <div>
+        <h2 class="vehicle-title">
+          {{vehicle.year}} {{vehicle.make}} {{vehicle.model}}
+        </h2>
+
+        <div class="vehicle-meta">
+          VIN {{vehicle.vin}}
+        </div>
+      </div>
+
+      <div class="odometer">
+        {{vehicle.odometer | number}} mi
+      </div>
+
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-grid">
+
+      <div *ngFor="let s of stats"
+           class="stat-card"
+           [class.alert]="s.alert">
+
+        <div class="stat-icon">
+          {{s.icon}}
+        </div>
+
+        <div class="stat-label">
+          {{s.label}}
+        </div>
+
+        <div class="stat-value">
+          {{s.value}}
+        </div>
+
+      </div>
+
+    </div>
+
+   <!-- WARRANTY STATUS CARD -->
+    <div *ngIf="result" class="warranty-card">
+
+      <div class="warranty-card__header">
+        <span class="warranty-card__label">WARRANTY STATUS</span>
+
+        <span
+          class="warranty-card__badge"
+          [ngClass]="result.covered ? 'badge-success' : 'badge-danger'"
+        >
+          {{ result.covered ? '✅ WARRANTY COVERED' : '❌ NOT COVERED' }}
+        </span>
+      </div>
+
+      <div class="warranty-card__body">
+
+        <div class="warranty-card__row" *ngIf="result.coverage_type">
+          <strong>Coverage Type:</strong> {{ result.coverage_type }}
+        </div>
+
+        <div class="warranty-card__row" *ngIf="result.expires">
+          <strong>Expire On:</strong> {{ result.expires }}
+        </div>
+
+        <div class="warranty-card__row" *ngIf="result.reason">
+          <strong>Reason:</strong> {{ result.reason }}
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ACTIVE FAULTS -->
+    <div *ngIf="vehicle.active_dtcs?.length" class="fault-card">
+
+      <div class="fault-card__header">
+        <span class="fault-card__icon">⚠️</span>
+        <span class="fault-card__title">Active Fault Codes</span>
+      </div>
+
+      <div class="fault-card__codes">
+        ISSUE CODE - {{ vehicle.active_dtcs.join(', ') }}
+      </div>
+
+    </div>
+
+  </ng-container>
+</div>

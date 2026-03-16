@@ -1,0 +1,383 @@
+/* PAGE BACKGROUND */
+
+.copilot-wrapper {
+
+  height: 90vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: "Inter",system-ui;
+
+  color: white;
+
+}
+
+/* PANEL */
+
+.copilot-panel {
+
+  width: 900px;
+  height: 500px;
+
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 26px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(15,23,42,0.9),
+      rgba(2,6,23,0.95)
+    );
+
+  backdrop-filter: blur(16px);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  box-shadow:
+    0 40px 120px rgba(0,0,0,0.8),
+    inset 0 1px rgba(255,255,255,0.06);
+
+  overflow: hidden;
+
+}
+
+/* HEADER */
+
+.copilot-header {
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 20px 24px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  color: #e9d5ff;
+
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(124,58,237,0.25),
+      rgba(2,6,23,0)
+    );
+
+}
+
+.bot-avatar {
+
+  width: 34px;
+  height: 34px;
+
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    linear-gradient(135deg,#9333ea,#6366f1);
+
+  box-shadow:
+    0 6px 16px rgba(124,58,237,.6);
+
+}
+
+/* MESSAGE AREA */
+
+.copilot-messages {
+
+  flex: 1;
+
+  padding: 24px;
+
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 18px;
+
+  scroll-behavior: smooth;
+
+}
+
+/* MESSAGE ROW */
+
+.message {
+
+  display: flex;
+
+  gap: 10px;
+
+  max-width: 75%;
+
+}
+
+/* USER ALIGN */
+
+.message.user {
+
+  align-self: flex-end;
+  flex-direction: row-reverse;
+
+}
+
+/* AVATAR */
+
+.avatar {
+
+  width: 32px;
+  height: 32px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 14px;
+
+  background: rgba(255,255,255,0.08);
+
+}
+
+/* BUBBLE */
+
+.bubble {
+
+  padding: 12px 16px;
+
+  font-size: 13px;
+
+  line-height: 1.5;
+
+  animation: fadeIn .25s ease;
+
+}
+
+/* USER BUBBLE */
+
+.message.user .bubble {
+
+  background:
+    linear-gradient(135deg,#7c3aed,#6366f1);
+
+  color: white;
+
+  border-radius: 16px 16px 4px 16px;
+
+  box-shadow:
+    0 8px 25px rgba(124,58,237,.45);
+
+}
+
+/* AGENT BUBBLE */
+
+.message.agent .bubble {
+
+  background:
+    rgba(30,41,59,0.55);
+
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  border-radius: 16px 16px 16px 4px;
+
+  color: #e2e8f0;
+
+}
+
+/* TOOL INFO */
+
+.tools {
+
+  font-size: 11px;
+
+  margin-top: 6px;
+
+  color: #94a3b8;
+
+}
+
+/* THINKING */
+
+.thinking {
+
+  padding-left: 40px;
+
+}
+
+.thinking span {
+
+  width: 6px;
+  height: 6px;
+
+  margin-right: 4px;
+
+  background: #a78bfa;
+
+  border-radius: 50%;
+
+  display: inline-block;
+
+  animation: bounce 1.4s infinite;
+
+}
+
+.thinking span:nth-child(2) {
+  animation-delay: .2s;
+}
+
+.thinking span:nth-child(3) {
+  animation-delay: .4s;
+}
+
+/* INPUT BAR */
+
+.copilot-input {
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 14px 16px;
+
+  margin: 16px;
+
+  border-radius: 14px;
+
+  background:
+    rgba(15,23,42,0.85);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(12px);
+
+}
+
+/* INPUT */
+
+.copilot-input input {
+
+  flex: 1;
+
+  background: transparent;
+
+  border: none;
+
+  color: white;
+
+  font-size: 14px;
+
+}
+
+.copilot-input input:focus {
+  outline: none;
+}
+
+/* BUTTON */
+
+.copilot-input button {
+
+  border-radius: 10px;
+
+  padding: 10px 16px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #6366f1,
+      #9333ea
+    );
+
+  border: none;
+
+  color: white;
+
+  font-weight: 500;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 10px 30px rgba(124,58,237,.5);
+
+}
+
+.copilot-input button:hover {
+
+  transform: translateY(-1px);
+
+}
+
+/* UPLOAD */
+
+.upload {
+
+  font-size: 18px;
+
+  cursor: pointer;
+
+  color: #94a3b8;
+
+}
+
+.upload:hover {
+  color: white;
+}
+
+/* SCROLLBAR */
+
+.copilot-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.copilot-messages::-webkit-scrollbar-thumb {
+
+  background: #7c3aed;
+
+  border-radius: 10px;
+
+}
+
+/* ANIMATIONS */
+
+@keyframes fadeIn {
+
+  from {
+
+    opacity: 0;
+    transform: translateY(6px);
+
+  }
+
+  to {
+
+    opacity: 1;
+    transform: translateY(0);
+
+  }
+
+}
+
+@keyframes bounce {
+
+  0%,80%,100% {
+    transform: scale(0);
+  }
+
+  40% {
+    transform: scale(1);
+  }
+
+}
