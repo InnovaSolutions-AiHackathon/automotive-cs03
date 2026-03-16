@@ -1,5 +1,5 @@
 CREATE DATABASE automotive_cs03 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE USER 'cs03_user'@'localhost' IDENTIFIED BY 'cs03_pass';
+CREATE USER 'cs03_user'@'localhost' IDENTIFIED BY 'admin';
 GRANT ALL PRIVILEGES ON automotive_cs03.* TO 'cs03_user'@'localhost';
 FLUSH PRIVILEGES;
 USE automotive_cs03;
