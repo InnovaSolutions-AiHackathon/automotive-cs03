@@ -1,0 +1,20 @@
+# ---- Angular / Node ----
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+
+# Optional root-level (only if backend or tools create these)
+node_modules/
+dist/
+.angular/
+
+# ---- IDE / OS ----
+.vscode/
+.DS_Store
+Thumbs.db
+
+# ---- Logs ----
+*.log
+
+# ---- IntelliJ / WebStorm ----
+.idea/
