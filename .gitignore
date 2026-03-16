@@ -18,3 +18,16 @@ Thumbs.db
 
 # ---- IntelliJ / WebStorm ----
 .idea/
+
+# ---- Python Cache ----
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.mypy_cache/
+.pytest_cache/
+.pyre/
+.pytype/
+
+# ---- Python Virtual Environments ----
+backend/venv/
