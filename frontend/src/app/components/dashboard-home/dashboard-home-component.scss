@@ -1,0 +1,18 @@
+
+.logout-btn {
+  width: 50%;
+  background: linear-gradient(135deg, #4f46e5, #9333ea);
+  padding: 8px 8px;
+  border: none;
+  border-radius: 20px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(147,51,234,.35);
+  color: antiquewhite
+}
+
+.logout-btn:hover {
+  box-shadow: 0 16px 40px rgba(120,60,255,.55);
+  transform: translateY(-2px);
+}

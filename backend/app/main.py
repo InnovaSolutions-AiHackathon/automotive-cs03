@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from app.api import agent, vehicles, warranty, scheduling, telematics
+from app.api import agent, vehicles, warranty, scheduling, telematics, user
 from app.config import settings
 from app.db.database import create_tables
 from app.rag.ingest import ingest_knowledge_base
@@ -36,6 +36,7 @@ app.include_router(vehicles.router,   prefix="/api/vehicles")
 app.include_router(warranty.router,   prefix="/api/warranty")
 app.include_router(scheduling.router, prefix="/api/scheduling")
 app.include_router(telematics.router, prefix="/api/telematics")
+app.include_router(user.router,       prefix="/api/user")
 
 @app.get("/")
 async def health():

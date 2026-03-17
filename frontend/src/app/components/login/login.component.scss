@@ -1,0 +1,90 @@
+.auth-wrapper {
+  height: 100dvh;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(1200px 800px at 10% -10%, rgba(54,83,200,.18), transparent 60%),
+    radial-gradient(1000px 700px at 110% 10%, rgba(0,200,255,.15), transparent 55%),
+    #0b1020;
+}
+
+.auth-card {
+  width: 380px;
+  padding: 28px;
+  border-radius: 18px;
+
+  background: rgba(17,23,53,0.75);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,.08);
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.5),
+    inset 0 1px rgba(255,255,255,.04);
+
+  color: #fff;
+}
+
+.title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.subtitle {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #a7afc9;
+}
+
+.field {
+  margin-top: 18px;
+
+  label {
+    font-size: 12px;
+    color: #a7afc9;
+  }
+
+  input {
+    margin-top: 6px;
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,.1);
+    background: rgba(255,255,255,.05);
+    color: #fff;
+    font-size: 14px;
+
+    &:focus {
+      outline: 2px solid #3b82f6;
+    }
+  }
+}
+
+.error {
+  margin-top: 10px;
+  color: #f87171;
+  font-size: 13px;
+}
+
+.btn-primary {
+  margin-top: 22px;
+  width: 100%;
+  background: linear-gradient(135deg, #4f46e5, #9333ea);
+  padding: 12px 16px;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 22px rgba(147,51,234,.35);
+}
+
+.signup-link {
+  text-align: center;
+  margin-top: 12px;
+
+  a {
+    color: #6aa6ff;
+    text-decoration: underline;
+  }
+}

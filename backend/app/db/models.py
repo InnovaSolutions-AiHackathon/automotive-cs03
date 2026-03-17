@@ -70,3 +70,14 @@ class AgentSession(Base):
     vehicle_id   = Column(String(20))
     history_json = Column(Text)
     updated_at   = Column(DateTime, server_default=func.now(), onupdate=func.now())
+
+
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True, index=True)
+    first_name = Column(String(50))
+    last_name = Column(String(50))
+    email = Column(String(150), unique=True, index=True)
+    password = Column(String(255))
+    mobile = Column(String(20))

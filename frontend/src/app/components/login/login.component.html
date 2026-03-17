@@ -1,0 +1,32 @@
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <h2 class="title">Welcome Back</h2>
+    <p class="subtitle">Login to continue</p>
+
+    <form (ngSubmit)="login()">
+      <div class="field">
+        <label>Email</label>
+        <input type="email" [(ngModel)]="email" name="email" placeholder="admin@gmail.com">
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+        <input type="password" [(ngModel)]="password" name="password" placeholder="•••••••">
+      </div>
+
+      <p class="error" *ngIf="error">{{error}}</p>
+
+      <button 
+        type="submit"
+        class="btn-primary" 
+        [disabled]="!email || !password">
+        Login
+      </button>
+    </form>
+
+    <div class="signup-link">
+      New user?
+      <a routerLink="/signup">Create account</a>
+    </div>
+  </div>
+</div>

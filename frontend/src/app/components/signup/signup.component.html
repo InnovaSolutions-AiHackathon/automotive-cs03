@@ -1,0 +1,115 @@
+<div class="auth-wrapper">
+  <div class="auth-card">
+
+    <h2 class="title">Create Account</h2>
+    <p class="subtitle">Fill the details to continue</p>
+
+    <p class="error" style="text-align: right; font-weight: 20px !important;" *ngIf="error">{{error}}</p>
+
+    <form #signupForm="ngForm" (ngSubmit)="signup(signupForm)" novalidate>
+
+      <div class="form-grid">
+
+        <!-- FIRST NAME -->
+        <div class="field">
+          <label>First Name</label>
+          <input
+            type="text"
+            name="firstName"
+            [(ngModel)]="firstName"
+            required
+            minlength="2"
+          >
+          <div class="error" *ngIf="signupForm.submitted && signupForm.controls['firstName']?.invalid">
+            First name is required (min 2 chars)
+          </div>
+        </div>
+
+        <!-- LAST NAME -->
+        <div class="field">
+          <label>Last Name</label>
+          <input
+            type="text"
+            name="lastName"
+            [(ngModel)]="lastName"
+            required
+            minlength="2"
+          >
+          <div class="error" *ngIf="signupForm.submitted && signupForm.controls['lastName']?.invalid">
+            Last name is required (min 2 chars)
+          </div>
+        </div>
+
+        <!-- EMAIL -->
+        <div class="field">
+          <label>Email</label>
+          <input
+            type="email"
+            name="email"
+            [(ngModel)]="email"
+            required
+            email
+          >
+          <div class="error" *ngIf="signupForm.submitted && signupForm.controls['email']?.invalid">
+            Valid email required
+          </div>
+        </div>
+
+        <!-- MOBILE -->
+        <div class="field">
+          <label>Mobile</label>
+          <input
+            type="text"
+            name="mobile"
+            [(ngModel)]="mobile"
+            required
+            pattern="^[0-9]{10}$"
+          >
+          <div class="error" *ngIf="signupForm.submitted && signupForm.controls['mobile']?.invalid">
+            Enter valid 10‑digit mobile number
+          </div>
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="field">
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            [(ngModel)]="password"
+            required
+            minlength="6"
+          >
+          <div class="error" *ngIf="signupForm.submitted && signupForm.controls['password']?.invalid">
+            Password must be at least 6 characters
+          </div>
+        </div>
+
+        <!-- CONFIRM PASSWORD -->
+        <div class="field">
+          <label>Confirm Password</label>
+          <input
+            type="password"
+            name="confirm"
+            [(ngModel)]="confirm"
+            required
+          >
+          <div class="error" *ngIf="signupForm.submitted && confirmMismatch">
+            Passwords do not match
+          </div>
+        </div>
+
+      </div>
+
+      <button class="btn-primary" type="submit">
+        Sign Up
+      </button>
+
+      <div class="signup-link">
+        Already have an account? <a routerLink="">Login</a>
+      </div>
+
+    </form>
+
+  </div>
+</div>

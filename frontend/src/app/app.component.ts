@@ -6,9 +6,9 @@ import { RouterOutlet, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, CommonModule],
+  imports: [RouterOutlet, CommonModule],
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  title = 'automotive-cs03';
+
 }
