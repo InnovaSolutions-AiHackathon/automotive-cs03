@@ -1,0 +1,45 @@
+<div class="vehicle-list">
+  
+  <div *ngFor="let v of vehicles" class="v-card" [class.has-alert]="v.status !== 'ok'">
+    
+    <!-- Header -->
+    <div class="v-head">
+      <div class="title">
+        {{v.make}} {{v.model}} {{v.year}}
+      </div>
+
+      <div class="badge"
+           [ngClass]="{
+              'ok': v.status === 'ok',
+              'warning': v.status === 'warning',
+              'critical': v.status === 'critical'
+            }">
+        {{ 
+          v.status === 'ok' ? '✔ OK' :
+          v.status === 'warning' ? '⚠ Warning' :
+          v.status === 'critical' ? '⛔ Critical' : '—'
+        }}
+      </div>
+    </div>
+
+    <!-- VIN -->
+    <div class="vin">VIN: {{v.vin}}</div>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat">
+        <div class="label">Odometer</div>
+        <div class="value">{{v.odometer | number}} mi</div>
+      </div>
+<!-- 
+      <div class="stat" *ngIf="v.active_dtcs?.length">
+        <div class="label">Active Faults</div>
+        <div class="value fault">
+          {{v.active_dtcs.length}} Code(s)
+        </div>
+      </div> -->
+    </div>
+
+  </div>
+
+</div>

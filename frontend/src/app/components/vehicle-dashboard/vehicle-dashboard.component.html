@@ -11,7 +11,7 @@
 
       <div>
         <h2 class="vehicle-title">
-          {{vehicle.year}} {{vehicle.make}} {{vehicle.model}}
+           {{vehicle.make}} {{vehicle.model}} {{vehicle.year}}
         </h2>
 
         <div class="vehicle-meta">
@@ -65,15 +65,15 @@
       <div class="warranty-card__body">
 
         <div class="warranty-card__row" *ngIf="result.coverage_type">
-          <strong>Coverage Type:</strong> {{ result.coverage_type }}
+          <strong>Coverage Type - </strong> {{ result.coverage_type }}
         </div>
 
         <div class="warranty-card__row" *ngIf="result.expires">
-          <strong>Expire On:</strong> {{ result.expires }}
+          <strong>Expire on - </strong> {{ result.expires }}
         </div>
 
         <div class="warranty-card__row" *ngIf="result.reason">
-          <strong>Reason:</strong> {{ result.reason }}
+          <strong>Reason - </strong> {{ result.reason }}
         </div>
 
       </div>
@@ -89,7 +89,7 @@
       </div>
 
       <div class="fault-card__codes">
-        ISSUE CODE - {{ vehicle.active_dtcs.join(', ') }}
+        Issue code - {{ vehicle.active_dtcs.join(', ') }}
       </div>
 
     </div>

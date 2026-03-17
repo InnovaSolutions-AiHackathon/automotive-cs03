@@ -33,3 +33,4 @@ __pycache__/
 backend/venv/
 
 backend/chroma_db/
+backend/chroma_db/*

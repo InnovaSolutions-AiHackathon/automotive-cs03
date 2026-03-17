@@ -3,7 +3,7 @@ from typing import List
 
 class Settings(BaseSettings):
     # Claude
-    ANTHROPIC_API_KEY: str = "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"
+    ANTHROPIC_API_KEY: str = "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"
     CLAUDE_MODEL: str = "claude-sonnet-3-20250514"
 
     # MySQL

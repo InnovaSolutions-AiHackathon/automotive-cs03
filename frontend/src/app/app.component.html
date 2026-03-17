@@ -1,21 +1,57 @@
-<header class="app-header">
-  <nav class="top-nav container">
-    <a class="brand" routerLink="/">CCA (Customer Conversation Assistant)</a>
-
-    <!-- Mobile menu toggle (no JS needed if you prefer static; wire up later if needed) -->
-    <input id="menu-toggle" type="checkbox" class="menu-toggle" aria-label="Toggle navigation">
-    <label for="menu-toggle" class="burger" aria-hidden="true">
-      <span></span><span></span><span></span>
-    </label>
-
-    <div class="links">
-      <a routerLink="/">Dashboard</a>
-      <a routerLink="/copilot" routerLinkActive="active">AI Copilot</a>
+<!-- app.component.html -->
+<div class="app-shell">
+  <!-- LEFT: Sidebar -->
+  <aside class="sidebar" aria-label="Primary">
+    <div class="brand">
+      <div class="brand__logo">🚗</div>
+      <div class="brand__title">CCA</div>
     </div>
-  </nav>
-</header>
 
-<main class="container main-content">
-  <router-outlet></router-outlet>
-</main>
+    <nav class="nav">
+      <a routerLink="/" routerLinkActive="is-active" class="nav__item">
+        <span class="nav__icon">🏠</span>
+        <span class="nav__label">Dashboard</span>
+        <span class="nav__badge">3</span>
+      </a>
 
+       <a routerLink="/vehicles-info" routerLinkActive="is-active" class="nav__item">
+        <span class="nav__icon">🚗</span>
+        <span class="nav__label">Vehicles</span>
+      </a>
+
+      <a routerLink="/copilot" routerLinkActive="is-active" class="nav__item">
+        <span class="nav__icon">🤖</span>
+        <span class="nav__label">AI Copilot</span>
+      </a>
+
+      <div class="nav__section">Service</div>
+        <a routerLink="/warranty" routerLinkActive="is-active" class="nav__item">
+          <span class="nav__icon">🛡️</span><span class="nav__label">Warranty</span>
+        </a>
+        <a routerLink="/scheduling" routerLinkActive="is-active" class="nav__item">
+          <span class="nav__icon">🗓️</span><span class="nav__label">Scheduling</span>
+        </a>
+        <a routerLink="/reports" routerLinkActive="is-active" class="nav__item">
+          <span class="nav__icon">📊</span><span class="nav__label">Reports</span>
+        </a>
+
+      <!-- <div class="nav__section">Settings</div>
+        <a routerLink="/settings" routerLinkActive="is-active" class="nav__item">
+          <span class="nav__icon">⚙️</span><span class="nav__label">Settings</span>
+        </a> -->
+    </nav>
+
+    <div class="sidebar__footer">
+      <!-- <div class="sys-pill"><span class="dot"></span>All Systems Operational</div> -->
+      <div class="user">
+        <div class="user__avatar">AK</div>
+        <div class="user__name">Amresh</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- RIGHT: Main canvas (scrolls) -->
+  <main class="main" role="main">
+    <router-outlet></router-outlet>
+  </main>
+</div>

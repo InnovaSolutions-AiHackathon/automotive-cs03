@@ -3,12 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { CopilotPanelComponent } from './components/copilot-panel/copilot-panel.component';
 import { VehicleDashboardComponent } from './components/vehicle-dashboard/vehicle-dashboard.component';
-import { WarrantyBadgeComponent } from './components/warranty-badge/warranty-badge.component';
+import { VehiclesinfoComponent } from './components/vehicles-info/vehicles-info.component';
 
 const routes: Routes = [
   { path: '', component: VehicleDashboardComponent },
   { path: 'copilot', component: CopilotPanelComponent },
-  { path: 'warranty', component: WarrantyBadgeComponent }
+  { path: 'vehicles-info', component: VehiclesinfoComponent }
 ];
 
 @NgModule({
