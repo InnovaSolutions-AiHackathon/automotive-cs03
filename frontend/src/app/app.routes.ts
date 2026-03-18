@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { DashboardHomeComponent } from './components/dashboard-home/dashboard-home-component';
-import { VehicleDashboardComponent } from './components/vehicle-dashboard/vehicle-dashboard.component';
+import { VehicleDetailComponent } from './components/vehicle-detail/vehicle-detail.component';
 import { CopilotPanelComponent } from './components/copilot-panel/copilot-panel.component';
 import { VehiclesinfoComponent } from './components/vehicles-info/vehicles-info.component';
 import { LoginComponent } from './components/login/login.component';
@@ -23,13 +23,16 @@ export const routes: Routes = [
     component: DashboardHomeComponent,
     canActivate: [authGuard],
     children: [
-      { path: 'home', component: VehicleDashboardComponent },
-      { path: 'dashboard', component: VehicleDashboardComponent },
+      { path: 'home', component: VehiclesinfoComponent },
+      { path: 'vehicles-dashboard', component: VehiclesinfoComponent },
+      { path: 'vehicles-details', component: VehicleDetailComponent },
       { path: 'copilot', component: CopilotPanelComponent },
-      { path: 'vehicles-info', component: VehiclesinfoComponent },
       { path: 'warranty', component: Warranty },
       { path: 'scheduling', component: Scheduling },
       { path: 'reports', component: Reports },
     ]
-  }
+  },
+
+  // Fallback route
+  { path: '**', redirectTo: '' }
 ];

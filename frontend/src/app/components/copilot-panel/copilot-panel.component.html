@@ -4,15 +4,8 @@
 
     <!-- HEADER -->
     <div class="copilot-header">
-
-      <div class="bot-avatar">
-        🤖
-      </div>
-
-      <div class="title">
-        AI Copilot — Vehicle {{vehicleId}}
-      </div>
-
+      <div class="bot-avatar">🤖</div>
+      <div class="title">CCA Copilot — Vehicle</div>
     </div>
 
     <!-- CHAT AREA -->
@@ -32,10 +25,24 @@
         <!-- MESSAGE -->
         <div class="bubble">
 
-          {{m.content}}
+          {{ m.content }}
 
+          <!-- 🚗 VEHICLE LIST -->
+          <div *ngIf="m.vehicles?.length" class="vehicle-list">
+            <button
+              *ngFor="let v of m.vehicles"
+              (click)="selectVehicle(v)"
+              class="vehicle-btn"
+              [class.selected]="vehicleId === v.vehicle_code"
+            >
+              <div class="make">{{ v.make }}</div>
+              <div class="model">{{ v.model }} • {{ v.year }}</div>
+            </button>
+          </div>
+
+          <!-- TOOLS -->
           <div *ngIf="m.tools?.length" class="tools">
-            🔧 {{m.tools | json}}
+            🔧 {{ m.tools | json }}
           </div>
 
         </div>
@@ -54,31 +61,29 @@
     <!-- INPUT BAR -->
     <div class="copilot-input">
 
-      <!-- IMAGE UPLOAD -->
+      <!-- IMAGE -->
       <label class="upload">
-
         🔗
-
         <input
           type="file"
           hidden
           accept="image/*"
           (change)="onImageSelected($event)"
         />
-
       </label>
 
-      <!-- TEXT INPUT -->
+      <!-- INPUT -->
       <input
         [(ngModel)]="inputText"
         (keydown)="onEnter($event)"
         placeholder="Describe your issue ..."
+        [disabled]="waitingForVehicle"
       />
 
-      <!-- SEND BUTTON -->
+      <!-- SEND -->
       <button
         (click)="send()"
-        [disabled]="loading"
+        [disabled]="loading || waitingForVehicle"
       >
         Send
       </button>

@@ -4,8 +4,7 @@
     Loading vehicle...
   </div>
 
-  <ng-container *ngIf="vehicle">
-
+  <ng-container *ngIf="vehicle; else notFound">
     <!-- HEADER -->
     <div class="vehicle-header">
 
@@ -95,4 +94,11 @@
     </div>
 
   </ng-container>
+
+  <ng-template #notFound>
+    <div class="not-found">
+      🚗 Vehicle details not found. Please try another vehicle.
+    </div>
+  </ng-template>
+  
 </div>

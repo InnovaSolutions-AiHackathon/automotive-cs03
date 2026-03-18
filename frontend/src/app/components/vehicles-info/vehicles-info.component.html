@@ -1,6 +1,9 @@
 <div class="vehicle-list">
   
-  <div *ngFor="let v of vehicles" class="v-card" [class.has-alert]="v.status !== 'ok'">
+  <div *ngFor="let v of vehicles" class="v-card" 
+      [class.has-alert]="v.status !== 'ok'"
+      [class.selected]="selectedVehicle?.id === v.id"
+      (click)="selectVehicle(v)">
     
     <!-- Header -->
     <div class="v-head">
@@ -31,15 +34,14 @@
         <div class="label">Odometer</div>
         <div class="value">{{v.odometer | number}} mi</div>
       </div>
-<!-- 
-      <div class="stat" *ngIf="v.active_dtcs?.length">
-        <div class="label">Active Faults</div>
-        <div class="value fault">
-          {{v.active_dtcs.length}} Code(s)
-        </div>
-      </div> -->
     </div>
 
   </div>
-
 </div>
+
+<!-- Show detail when a vehicle is selected -->
+<app-vehicle-detail 
+  *ngIf="selectedVehicle"
+  [vehicleCode]="selectedVehicle.id"
+ >
+</app-vehicle-detail>

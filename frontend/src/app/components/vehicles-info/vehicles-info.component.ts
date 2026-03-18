@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
+import { VehicleDetailComponent } from '../vehicle-detail/vehicle-detail.component';
 
 
 export interface VehicleItem {
@@ -17,7 +18,7 @@ export interface VehicleItem {
 @Component({
   selector: 'app-vehicles-info',
   templateUrl: './vehicles-info.component.html',
-  imports: [CommonModule],
+  imports: [CommonModule, VehicleDetailComponent],
   styleUrls: ['./vehicles-info.component.scss']
 })
 export class VehiclesinfoComponent implements OnInit {
@@ -25,13 +26,15 @@ export class VehiclesinfoComponent implements OnInit {
   
   @Input() vehicles: VehicleItem[] = [];
 
+  selectedVehicle: any = null;
+
   constructor(private api: ApiService) {}
 
   ngOnInit(): void {
 
     this.vehicles = [
   {
-    id: '1',
+    id: 'VH001',
     year: 2020,
     make: 'Honda',
     model: 'Accord',
@@ -40,7 +43,7 @@ export class VehiclesinfoComponent implements OnInit {
     status: 'ok'
   },
   {
-    id: '2',
+    id: 'VH002',
     year: 2021,
     make: 'Toyota',
     model: 'Camry',
@@ -61,5 +64,9 @@ export class VehiclesinfoComponent implements OnInit {
   }
 ];
     
+  }
+
+  selectVehicle(v: any) {
+    this.selectedVehicle = v;
   }
 }

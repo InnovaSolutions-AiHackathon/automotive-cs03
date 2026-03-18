@@ -33,11 +33,10 @@ export class LoginComponent {
         password:this.password
       }
 
-    this.auth.login(data).subscribe(res=>{
-      this.auth.saveToken(res.access_token);
-      this.router.navigate(['/home']);
-    })
-
+      this.auth.login(data).subscribe(res=>{
+        this.auth.saveToken(res.access_token);
+        this.router.navigate(['/home']);
+      })
     } catch (e) {
       this.error = 'Invalid email or password';
     }
