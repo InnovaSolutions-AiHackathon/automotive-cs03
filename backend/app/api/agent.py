@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from typing import Optional
-from app.agent.claude_agent import run_agent
+from app.agent.askAI import run_agent
 
 router = APIRouter()
 
@@ -31,25 +31,11 @@ async def query_handler(payload: AskRequest, db: Session = Depends(get_db)):
     if not user_message:
         return {"error": "Message cannot be empty."}
     
-
-    # Todo: Get list of vehicles from agent instead of directly from database, as agent may have additional logic to filter or prioritize vehicles based on user context or preferences.
-    # find list of vehicle associated with the user if vehicle_id is not provided
-    if not payload.vehicle_id:
-        user_id = payload.user_id or "unknown_user"
-        # Reuse your list_vehicles service
-        vehicles = list_vehicles(db=db)
-        # Optionally filter by user_id if your Vehicle model has that field
-        user_vehicles = [v for v in vehicles if v.get("user_id") == user_id] if "user_id" in vehicles[0] else vehicles
-
-        return {
-            "message": "Select a vehicle to proceed.",
-            "vehicles": vehicles
-        }
-    
     context = {
         "session_id": payload.session_id,
         "vehicle_id": payload.vehicle_id,
-        "image_base64": payload.image_base64
+        "image_base64": payload.image_base64,
+        "user_id": payload.user_id
     }
     result = await run_orchestrator(user_message, context)
     print(f"Orchestrator result: {result}")

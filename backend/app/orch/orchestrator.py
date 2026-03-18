@@ -1,35 +1,30 @@
-from app.agent.claude_agent import run_agent
+from app.agent.askAI import run_agent
 from app.agent.warranty_agent import get_warranty_agent
 from app.agent.scheduler_agent import get_scheduler_agent
 from app.agent.telemetry_agent import get_telemetry_agent
+from app.agent.gemini_client import GeminiClient
+from app.agent.classify_intent import classify_intent
+from app.config import settings
 
 async def run_orchestrator(user_message: str, context: dict = None) -> dict:
-    """
-    Routes user messages to the correct agent.
-    """
     if context is None:
         context = {}
 
-    lower_msg = user_message.lower()
+    llm_client = GeminiClient(api_key=settings.GEMINI_API_KEY)
 
-    print(f"Orchestrator received message: {lower_msg}")
+    # Classify intent
+    intent = await classify_intent(user_message, llm_client)
+    print(f"Orchestrator classified user message '{user_message}' with intent: {intent}")
 
-    if "warranty" in lower_msg:
-        # call warranty agent
+    if intent == "warranty":
         return await get_warranty_agent().process_query(user_message, context)
-
-    elif "schedule" in lower_msg:
-        # call scheduler agent
+    elif intent == "scheduler":
         return await get_scheduler_agent().process_query(user_message, context)
-
-    elif "telemetry" in lower_msg:
-        # call telemetry agent
+    elif intent == "telemetry":
         return await get_telemetry_agent().process_query(user_message, context)
-
     else:
-        # Default → Claude agent (RAG + tools)
         return await run_agent(
             session_id=context.get("session_id", "default"),
             user_message=user_message,
-            vehicle_id=context.get("vehicle_id")
+            llm_client=llm_client
         )
