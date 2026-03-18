@@ -1,8 +1,10 @@
 import json
 import logging
 from app.agent.gemini_client import GeminiClient
-from app.config import settings
+
 logger = logging.getLogger(__name__)
+
+VALID_INTENTS = {"vehicle", "warranty", "scheduler", "telemetry", "general"}
 
 async def classify_intent(user_message: str, llm_client: GeminiClient) -> str:
     """
@@ -31,24 +33,38 @@ async def classify_intent(user_message: str, llm_client: GeminiClient) -> str:
     Query: "{user_message}"
     """
 
-    response = await llm_client.generate(
-        messages=[{"role": "user", "content": [{"type": "text", "text": prompt}]}],
-        system_prompt="You are a strict intent classification assistant. Always respond with valid JSON only."
-    )
+    try:
+        response = await llm_client.generate(
+            messages=[{"role": "user", "content": [{"type": "text", "text": prompt}]}],
+            system_prompt="You are a strict intent classification assistant. Always respond with valid JSON only."
+        )
+    except Exception as e:
+        logger.error(f"Gemini API error: {e}")
+        return "general"
 
     raw_text = response.text.strip()
-    print(f"Raw classifier response: {raw_text}")
+    logger.debug(f"Raw classifier response: {raw_text}")
 
-    # Fallback: handle plain text responses like 'warranty'
-    if raw_text.lower() in ["vehicle", "warranty", "scheduler", "telemetry", "general"]:
-        print(f"Classified intent (fallback): {raw_text.lower()} for message: {user_message}")
+    # Step 1: strip code fences if present
+    if raw_text.startswith("```"):
+        raw_text = raw_text.strip("`")  # remove backticks
+        raw_text = raw_text.replace("json", "", 1).strip()
+
+    # Step 2: fallback if plain text intent returned
+    if raw_text.lower() in VALID_INTENTS:
+        logger.info(f"Classified intent (fallback): {raw_text.lower()} for message: {user_message}")
         return raw_text.lower()
 
+    # Step 3: try parsing JSON
     try:
         parsed = json.loads(raw_text)
         intent = parsed.get("intent", "general").lower()
-        print(f"Classified intent: {intent} for message: {user_message}")
-        return intent
+        if intent in VALID_INTENTS:
+            logger.info(f"Classified intent: {intent} for message: {user_message}")
+            return intent
+        else:
+            logger.warning(f"Invalid intent returned: {intent}, defaulting to 'general'")
+            return "general"
     except Exception as e:
-        print(f"Failed to parse classifier response: {e} | Raw: {raw_text}")
+        logger.error(f"Failed to parse classifier response: {e} | Raw: {raw_text}")
         return "general"
