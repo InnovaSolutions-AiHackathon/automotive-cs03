@@ -70,7 +70,8 @@ export class CopilotPanelComponent {
       session_id: this.sessionId,
       message: this.inputText,
       vehicle_id: this.vehicleId,
-      image_base64: this.imageBase64 ?? undefined
+      image_base64: this.imageBase64 ?? undefined,
+      user_id: "1" // Placeholder user ID dynamically
     };
 
     this.api.askAgent(payload).subscribe({
