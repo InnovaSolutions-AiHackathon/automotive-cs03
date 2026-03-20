@@ -19,6 +19,11 @@ Thumbs.db
 # ---- IntelliJ / WebStorm ----
 .idea/
 
+# ---- Environment / Secrets (NEVER commit) ----
+.env
+*.env
+!.env.example
+
 # ---- Python Cache ----
 __pycache__/
 *.pyc
