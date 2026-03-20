@@ -1,1 +1,91 @@
-<p>Feature Coming soon..!</p>
+<div class="schedule-wrapper">
+
+  <div class="schedule-card">
+    <h2 class="title">Create Schedule</h2>
+    <p class="subtitle">Plan a service appointment</p>
+
+    <form #schForm="ngForm" (ngSubmit)="submitSchedule(schForm)">
+
+      <div class="form-grid">
+
+        <!-- VEHICLE -->
+        <div class="field">
+          <label>Vehicle</label>
+          <select
+            name="vehicleId"
+            [(ngModel)]="vehicleId"
+            required
+          >
+            <option value="" disabled selected>Select Vehicle</option>
+            <option *ngFor="let v of vehicles" [value]="v.id">{{ v.name }}</option>
+          </select>
+          <div class="error" *ngIf="schForm.submitted && schForm.controls['vehicleId']?.invalid">
+            Please select a vehicle
+          </div>
+        </div>
+
+        <!-- SERVICE TYPE -->
+        <div class="field">
+          <label>Service Type</label>
+          <select
+            name="serviceType"
+            [(ngModel)]="serviceType"
+            required
+          >
+            <option value="" disabled selected>Select Service</option>
+            <option *ngFor="let t of serviceTypes" [value]="t">{{ t }}</option>
+          </select>
+          <div class="error" *ngIf="schForm.submitted && schForm.controls['serviceType']?.invalid">
+            Please select a service type
+          </div>
+        </div>
+
+        <!-- DATE -->
+        <div class="field">
+          <label>Date</label>
+          <input
+            type="date"
+            name="date"
+            [(ngModel)]="date"
+            required
+          >
+          <div class="error" *ngIf="schForm.submitted && schForm.controls['date']?.invalid">
+            Pick a date
+          </div>
+        </div>
+
+        <!-- TIME -->
+        <div class="field">
+          <label>Time</label>
+          <input
+            type="time"
+            name="time"
+            [(ngModel)]="time"
+            required
+          >
+          <div class="error" *ngIf="schForm.submitted && schForm.controls['time']?.invalid">
+            Select a time
+          </div>
+        </div>
+
+        <!-- NOTES -->
+        <div class="field notes-field full">
+          <label>Notes (optional)</label>
+          <textarea
+            name="notes"
+            [(ngModel)]="notes"
+            rows="3"
+            placeholder="Any details to mention?"
+          ></textarea>
+        </div>
+
+      </div>
+
+      <div class="error global" *ngIf="error">{{error}}</div>
+
+      <button class="btn-primary" type="submit">Create Schedule</button>
+
+    </form>
+  </div>
+
+</div>

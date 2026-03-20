@@ -129,11 +129,11 @@ export class CopilotPanelComponent {
     let agentMessage: Message;
 
     // 🔥 VEHICLE LIST RESPONSE
-    if (res.vehicles) {
+    if (res.data?.vehicles?.length) {
       agentMessage = {
         role: 'agent',
-        content: res.message || 'Please select a vehicle',
-        vehicles: res.vehicles
+        content: res.response || 'Please select a vehicle',
+        vehicles: res.data.vehicles
       };
     }
 

@@ -1,1 +1,26 @@
-<p>Feature Coming soon..!</p>
+<div class="page">
+
+  <div class="section-title">Warranty</div>
+
+  <div class="glass-card">
+
+    <div class="card-head">
+      <h3>Current Warranty</h3>
+
+      <span class="badge"
+            [class.ok]="warranty.covered"
+            [class.expired]="!warranty.covered">
+        {{ warranty.covered ? "Active" : "Expired" }}
+      </span>
+    </div>
+
+    <div class="item"><strong>Type:</strong> {{warranty.type}}</div>
+    <div class="item"><strong>Expires:</strong> {{warranty.expires}}</div>
+
+    <button routerLink="/warranty/extend" class="btn-primary">
+      Extend Warranty
+    </button>
+
+  </div>
+
+</div>

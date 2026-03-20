@@ -1,0 +1,56 @@
+<div class="page">
+
+  <!-- TITLE -->
+  <div class="header">
+    <h2 class="title">Insurance</h2>
+    <p class="subtitle">Manage your insurance and explore plans</p>
+  </div>
+
+  <!-- CURRENT INSURANCE SECTION -->
+  <section class="glass-section">
+
+    <div class="section-head">
+      <h3>Current Insurance</h3>
+      <span class="badge active">Active</span>
+    </div>
+
+    <div class="item"><strong>Provider:</strong> {{insurance.provider}}</div>
+    <div class="item"><strong>Policy No:</strong> {{insurance.policyNo}}</div>
+    <div class="item"><strong>Expires On:</strong> {{insurance.expiresOn}}</div>
+
+    <!-- VALIDITY BAR -->
+    <div class="validity-box">
+      <div class="validity-label">26 Days Left</div>
+      <div class="validity-bar">
+        <div class="validity-progress"></div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- BUY INSURANCE SECTION -->
+  <section class="glass-section">
+
+    <div class="section-head">
+      <h3>Buy New Insurance</h3>
+    </div>
+
+    <div class="plans">
+      <div class="plan-card"
+           *ngFor="let p of plans"
+           [class.active]="selectedPlan === p"
+           (click)="selectPlan(p)">
+        <h4>{{p.name}}</h4>
+        <div class="price">₹ {{p.price}}</div>
+        <div class="duration">{{p.duration}}</div>
+      </div>
+    </div>
+
+    <button class="btn-primary" *ngIf="selectedPlan">
+      Proceed to Purchase
+    </button>
+
+  </section>
+
+</div>

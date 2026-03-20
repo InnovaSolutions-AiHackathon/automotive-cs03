@@ -7,7 +7,7 @@ import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { Warranty } from './components/warranty/warranty';
 import { Scheduling} from './components/scheduling/scheduling';
-import { Reports } from './components/reports/reports';
+import { Insurance } from './components/insurance/insurance';
 
 import { authGuard } from './guards/auth.guard';
 
@@ -29,7 +29,7 @@ export const routes: Routes = [
       { path: 'copilot', component: CopilotPanelComponent },
       { path: 'warranty', component: Warranty },
       { path: 'scheduling', component: Scheduling },
-      { path: 'reports', component: Reports },
+      { path: 'insurance', component: Insurance },
     ]
   },
 
