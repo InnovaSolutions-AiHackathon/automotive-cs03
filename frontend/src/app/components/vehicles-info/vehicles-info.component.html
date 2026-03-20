@@ -1,47 +1,51 @@
-<div class="vehicle-list">
-  
-  <div *ngFor="let v of vehicles" class="v-card" 
-      [class.has-alert]="v.status !== 'ok'"
-      [class.selected]="selectedVehicle?.id === v.id"
-      (click)="selectVehicle(v)">
-    
-    <!-- Header -->
-    <div class="v-head">
-      <div class="title">
-        {{v.make}} {{v.model}} {{v.year}}
+@if (loading) {
+  <div class="loading-state">Loading vehicles…</div>
+}
+
+@if (error) {
+  <div class="error-state">{{ error }}</div>
+}
+
+@if (!loading && !error) {
+  <div class="vehicle-list">
+    @for (v of vehicles; track v.vehicle_code) {
+      <div class="v-card"
+           [class.has-alert]="v.status !== 'ok'"
+           [class.selected]="selectedVehicle?.vehicle_code === v.vehicle_code"
+           (click)="selectVehicle(v)">
+
+        <div class="v-head">
+          <div class="title">{{ v.make }} {{ v.model }} {{ v.year }}</div>
+          <div class="badge"
+               [ngClass]="{
+                 'ok':       v.status === 'ok',
+                 'warning':  v.status === 'warning',
+                 'critical': v.status === 'critical'
+               }">
+            {{ v.status === 'ok' ? '✔ OK' : v.status === 'warning' ? '⚠ Warning' : '⛔ Critical' }}
+          </div>
+        </div>
+
+        <div class="vin">VIN: {{ v.vin ?? '—' }}</div>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="label">Odometer</div>
+            <div class="value">{{ v.odometer | number }} km</div>
+          </div>
+          @if (v.active_dtcs?.length) {
+            <div class="stat">
+              <div class="label">Active Faults</div>
+              <div class="value fault">{{ v.active_dtcs!.join(', ') }}</div>
+            </div>
+          }
+        </div>
+
       </div>
-
-      <div class="badge"
-           [ngClass]="{
-              'ok': v.status === 'ok',
-              'warning': v.status === 'warning',
-              'critical': v.status === 'critical'
-            }">
-        {{ 
-          v.status === 'ok' ? '✔ OK' :
-          v.status === 'warning' ? '⚠ Warning' :
-          v.status === 'critical' ? '⛔ Critical' : '—'
-        }}
-      </div>
-    </div>
-
-    <!-- VIN -->
-    <div class="vin">VIN: {{v.vin}}</div>
-
-    <!-- Stats -->
-    <div class="stats">
-      <div class="stat">
-        <div class="label">Odometer</div>
-        <div class="value">{{v.odometer | number}} mi</div>
-      </div>
-    </div>
-
+    }
   </div>
-</div>
+}
 
-<!-- Show detail when a vehicle is selected -->
-<app-vehicle-detail 
-  *ngIf="selectedVehicle"
-  [vehicleCode]="selectedVehicle.id"
- >
-</app-vehicle-detail>
+@if (selectedVehicle) {
+  <app-vehicle-detail [vehicleCode]="selectedVehicle.vehicle_code" />
+}

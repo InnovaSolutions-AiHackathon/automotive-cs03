@@ -1,26 +1,71 @@
 <div class="page">
-
   <div class="section-title">Warranty</div>
 
+  @if (error) {
+    <div class="error-banner">{{ error }}</div>
+  }
+
+  <!-- Vehicle selector -->
   <div class="glass-card">
-
-    <div class="card-head">
-      <h3>Current Warranty</h3>
-
-      <span class="badge"
-            [class.ok]="warranty.covered"
-            [class.expired]="!warranty.covered">
-        {{ warranty.covered ? "Active" : "Expired" }}
-      </span>
-    </div>
-
-    <div class="item"><strong>Type:</strong> {{warranty.type}}</div>
-    <div class="item"><strong>Expires:</strong> {{warranty.expires}}</div>
-
-    <button routerLink="/warranty/extend" class="btn-primary">
-      Extend Warranty
-    </button>
-
+    <h3>Select Vehicle</h3>
+    <select [(ngModel)]="selectedVehicleCode" (change)="onVehicleChange()" class="select-input">
+      <option value="" disabled>Select a vehicle</option>
+      @for (v of vehicles; track v.vehicle_code) {
+        <option [value]="v.vehicle_code">{{ v.make }} {{ v.model }} {{ v.year }} ({{ v.vehicle_code }})</option>
+      }
+    </select>
   </div>
+
+  <!-- Active warranties -->
+  @if (selectedVehicleCode) {
+    <div class="glass-card">
+      <h3>Active Warranties</h3>
+      @if (loadingWarranties) {
+        <p class="muted">Loading…</p>
+      } @else if (warranties.length === 0) {
+        <p class="muted">No warranty records found for this vehicle.</p>
+      } @else {
+        @for (w of warranties; track w.coverage_type) {
+          <div class="warranty-row">
+            <span class="coverage-type">{{ w.coverage_type | titlecase }}</span>
+            <span class="dates">{{ w.start_date }} → {{ w.end_date }}</span>
+            <span class="badge ok">Active</span>
+          </div>
+        }
+      }
+    </div>
+  }
+
+  <!-- Coverage checker -->
+  @if (selectedVehicleCode) {
+    <div class="glass-card">
+      <h3>Check Repair Coverage</h3>
+      <div class="form-row">
+        <select [(ngModel)]="repairType" class="select-input">
+          @for (t of repairTypes; track t) {
+            <option [value]="t">{{ t | titlecase }}</option>
+          }
+        </select>
+        <button class="btn-primary" (click)="checkCoverage()" [disabled]="loading">
+          {{ loading ? 'Checking…' : 'Check Coverage' }}
+        </button>
+      </div>
+
+      @if (checkResult) {
+        <div class="result-box" [class.covered]="checkResult.covered" [class.not-covered]="!checkResult.covered">
+          @if (checkResult.covered) {
+            <div class="result-icon">✅</div>
+            <div><strong>Covered</strong> — {{ checkResult.coverage_type | titlecase }}</div>
+            <div>Expires: {{ checkResult.expires }}</div>
+            <div>Miles remaining: {{ checkResult.miles_remaining | number }}</div>
+          } @else {
+            <div class="result-icon">❌</div>
+            <div><strong>Not Covered</strong></div>
+            <div>{{ checkResult.reason }}</div>
+          }
+        </div>
+      }
+    </div>
+  }
 
 </div>

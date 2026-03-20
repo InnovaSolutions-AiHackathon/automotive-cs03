@@ -1,33 +1,67 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-insurance',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './insurance.html',
   styleUrl: './insurance.scss',
 })
-export class Insurance {
-  
-  // Current Insurance
-  insurance = {
-    provider: "HDFC Ergo",
-    policyNo: "POL-45233621",
-    expiresOn: "2026-08-12",
-    status: "active"
-  };
-
-  // Plans
-  plans = [
-    { name: "Basic Cover", price: 1500, duration: "1 Year" },
-    { name: "Standard Cover", price: 2300, duration: "1 Year" },
-    { name: "Premium Cover", price: 3500, duration: "2 Years" }
-  ];
-
+export class Insurance implements OnInit {
+  vehicles: any[] = [];
+  selectedVehicleCode = '';
+  insurance: any = null;
+  plans: any[] = [];
   selectedPlan: any = null;
 
-  selectPlan(plan: any) {
+  loadingInsurance = false;
+  loadingPlans = true;
+  error = '';
+
+  constructor(private api: ApiService) {}
+
+  ngOnInit(): void {
+    this.api.listVehicles().subscribe({
+      next: (list) => (this.vehicles = list),
+      error: () => (this.error = 'Failed to load vehicles'),
+    });
+
+    this.api.getInsurancePlans().subscribe({
+      next: (res) => {
+        this.plans = res.plans ?? [];
+        this.loadingPlans = false;
+      },
+      error: () => {
+        this.loadingPlans = false;
+      },
+    });
+  }
+
+  onVehicleChange(): void {
+    if (!this.selectedVehicleCode) return;
+    this.loadingInsurance = true;
+    this.insurance = null;
+
+    this.api.getVehicleInsurance(this.selectedVehicleCode).subscribe({
+      next: (res) => {
+        this.insurance = res.found ? res : null;
+        this.loadingInsurance = false;
+      },
+      error: () => {
+        this.loadingInsurance = false;
+      },
+    });
+  }
+
+  selectPlan(plan: any): void {
     this.selectedPlan = plan;
+  }
+
+  daysLeftPercent(): number {
+    if (!this.insurance?.days_left) return 0;
+    return Math.min(100, Math.round((this.insurance.days_left / 365) * 100));
   }
 }

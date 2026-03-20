@@ -24,7 +24,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
     children: [
       { path: 'home', component: VehiclesinfoComponent },
-      { path: 'vehicles-dashboard', component: VehiclesinfoComponent },
+      { path: 'vehicles-dashboard', component: VehiclesinfoComponent, runGuardsAndResolvers: 'always' },
       { path: 'vehicles-details', component: VehicleDetailComponent },
       { path: 'copilot', component: CopilotPanelComponent },
       { path: 'warranty', component: Warranty },

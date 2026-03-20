@@ -1,56 +1,88 @@
 <div class="page">
 
-  <!-- TITLE -->
   <div class="header">
     <h2 class="title">Insurance</h2>
-    <p class="subtitle">Manage your insurance and explore plans</p>
+    <p class="subtitle">Manage your vehicle insurance and explore plans</p>
   </div>
 
-  <!-- CURRENT INSURANCE SECTION -->
+  @if (error) {
+    <div class="error-banner">{{ error }}</div>
+  }
+
+  <!-- Vehicle selector -->
   <section class="glass-section">
-
-    <div class="section-head">
-      <h3>Current Insurance</h3>
-      <span class="badge active">Active</span>
-    </div>
-
-    <div class="item"><strong>Provider:</strong> {{insurance.provider}}</div>
-    <div class="item"><strong>Policy No:</strong> {{insurance.policyNo}}</div>
-    <div class="item"><strong>Expires On:</strong> {{insurance.expiresOn}}</div>
-
-    <!-- VALIDITY BAR -->
-    <div class="validity-box">
-      <div class="validity-label">26 Days Left</div>
-      <div class="validity-bar">
-        <div class="validity-progress"></div>
-      </div>
-    </div>
-
+    <h3>Select Vehicle</h3>
+    <select [(ngModel)]="selectedVehicleCode" (change)="onVehicleChange()" class="select-input">
+      <option value="" disabled>Select a vehicle</option>
+      @for (v of vehicles; track v.vehicle_code) {
+        <option [value]="v.vehicle_code">{{ v.make }} {{ v.model }} {{ v.year }}</option>
+      }
+    </select>
   </section>
 
-
-  <!-- BUY INSURANCE SECTION -->
-  <section class="glass-section">
-
-    <div class="section-head">
-      <h3>Buy New Insurance</h3>
-    </div>
-
-    <div class="plans">
-      <div class="plan-card"
-           *ngFor="let p of plans"
-           [class.active]="selectedPlan === p"
-           (click)="selectPlan(p)">
-        <h4>{{p.name}}</h4>
-        <div class="price">₹ {{p.price}}</div>
-        <div class="duration">{{p.duration}}</div>
+  <!-- Current Insurance -->
+  @if (selectedVehicleCode) {
+    <section class="glass-section">
+      <div class="section-head">
+        <h3>Current Insurance</h3>
       </div>
+
+      @if (loadingInsurance) {
+        <p class="muted">Loading insurance info…</p>
+      } @else if (!insurance) {
+        <p class="muted">No active insurance found for this vehicle.</p>
+      } @else {
+        <div class="section-head">
+          <span></span>
+          <span class="badge active">{{ insurance.status | titlecase }}</span>
+        </div>
+        <div class="item"><strong>Provider:</strong> {{ insurance.provider }}</div>
+        <div class="item"><strong>Policy No:</strong> {{ insurance.policy_no }}</div>
+        <div class="item"><strong>Plan:</strong> {{ insurance.plan_name ?? '—' }}</div>
+        <div class="item"><strong>Expires On:</strong> {{ insurance.expires_on }}</div>
+
+        <div class="validity-box">
+          <div class="validity-label">{{ insurance.days_left }} Days Left</div>
+          <div class="validity-bar">
+            <div class="validity-progress" [style.width.%]="daysLeftPercent()"></div>
+          </div>
+        </div>
+      }
+    </section>
+  }
+
+  <!-- Buy Insurance Plans -->
+  <section class="glass-section">
+    <div class="section-head">
+      <h3>Available Plans</h3>
     </div>
 
-    <button class="btn-primary" *ngIf="selectedPlan">
-      Proceed to Purchase
-    </button>
+    @if (loadingPlans) {
+      <p class="muted">Loading plans…</p>
+    } @else {
+      <div class="plans">
+        @for (p of plans; track p.id) {
+          <div class="plan-card"
+               [class.active]="selectedPlan?.id === p.id"
+               (click)="selectPlan(p)">
+            <h4>{{ p.name }}</h4>
+            <div class="price">₹ {{ p.price | number }}</div>
+            <div class="duration">{{ p.duration }}</div>
+            @if (p.features?.length) {
+              <ul class="features">
+                @for (f of p.features; track f) {
+                  <li>{{ f }}</li>
+                }
+              </ul>
+            }
+          </div>
+        }
+      </div>
 
+      @if (selectedPlan) {
+        <button class="btn-primary">Proceed to Purchase — {{ selectedPlan.name }}</button>
+      }
+    }
   </section>
 
 </div>

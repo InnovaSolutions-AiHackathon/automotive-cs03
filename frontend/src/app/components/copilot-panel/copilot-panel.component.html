@@ -1,95 +1,67 @@
 <div class="copilot-wrapper">
-
   <div class="copilot-panel">
 
     <!-- HEADER -->
     <div class="copilot-header">
       <div class="bot-avatar">🤖</div>
-      <div class="title">CCA Copilot — Vehicle</div>
+      <div class="title">CS Copilot — AI Agent</div>
     </div>
 
     <!-- CHAT AREA -->
     <div class="copilot-messages">
 
-      <div
-        *ngFor="let m of messages"
-        class="message"
-        [ngClass]="m.role"
-      >
+      @for (m of messages; track $index) {
+        <div class="message" [ngClass]="m.role">
 
-        <!-- AVATAR -->
-        <div class="avatar">
-          {{ m.role === 'agent' ? '🤖' : '🧑' }}
-        </div>
+          <div class="avatar">{{ m.role === 'agent' ? '🤖' : '🧑' }}</div>
 
-        <!-- MESSAGE -->
-        <div class="bubble">
+          <div class="bubble">
+            {{ m.content }}
 
-          {{ m.content }}
-
-          <!-- 🚗 VEHICLE LIST -->
-          <div *ngIf="m.vehicles?.length" class="vehicle-list">
-            <button
-              *ngFor="let v of m.vehicles"
-              (click)="selectVehicle(v)"
-              class="vehicle-btn"
-              [class.selected]="vehicleId === v.vehicle_code"
-            >
-              <div class="make">{{ v.make }}</div>
-              <div class="model">{{ v.model }} • {{ v.year }}</div>
-            </button>
-          </div>
-
-          <!-- TOOLS -->
-          <div *ngIf="m.tools?.length" class="tools">
-            🔧 {{ m.tools | json }}
+            <!-- Vehicle selection list -->
+            @if (m.vehicles?.length) {
+              <div class="vehicle-list">
+                @for (v of m.vehicles!; track v.vehicle_code) {
+                  <button class="vehicle-btn"
+                          [class.selected]="vehicleId === v.vehicle_code"
+                          (click)="selectVehicle(v)">
+                    <div class="make">{{ v.make }}</div>
+                    <div class="model">{{ v.model }} • {{ v.year }}</div>
+                  </button>
+                }
+              </div>
+            }
           </div>
 
         </div>
+      }
 
-      </div>
-
-      <!-- THINKING -->
-      <div *ngIf="loading" class="thinking">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+      <!-- Typing indicator -->
+      @if (loading) {
+        <div class="thinking">
+          <span></span><span></span><span></span>
+        </div>
+      }
 
     </div>
 
     <!-- INPUT BAR -->
     <div class="copilot-input">
 
-      <!-- IMAGE -->
-      <label class="upload">
-        🔗
-        <input
-          type="file"
-          hidden
-          accept="image/*"
-          (change)="onImageSelected($event)"
-        />
+      <!-- Image upload -->
+      <label class="upload" title="Attach dashboard image">
+        📷
+        <input type="file" hidden accept="image/*" (change)="onImageSelected($event)" />
       </label>
 
-      <!-- INPUT -->
-      <input
-        [(ngModel)]="inputText"
-        (keydown)="onEnter($event)"
-        placeholder="Describe your issue ..."
-        [disabled]="waitingForVehicle"
-      />
+      <input [(ngModel)]="inputText"
+             (keydown)="onEnter($event)"
+             placeholder="Describe the issue or ask a question…"
+             [disabled]="waitingForVehicle" />
 
-      <!-- SEND -->
-      <button
-        (click)="send()"
-        [disabled]="loading || waitingForVehicle"
-      >
-        Send
-      </button>
+      <button (click)="send()" [disabled]="loading || waitingForVehicle">Send</button>
 
     </div>
 
   </div>
-
 </div>

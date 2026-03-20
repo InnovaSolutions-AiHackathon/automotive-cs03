@@ -2,6 +2,7 @@ import { Component, Input, ChangeDetectorRef } from '@angular/core';
 import { CommonModule, JsonPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
+import { AuthService } from '../../services/auth.service';
 
 interface Vehicle {
   vehicle_code: string;
@@ -32,9 +33,11 @@ export class CopilotPanelComponent {
   loading = false;
   imageBase64: string | null = null;
   sessionId = `sess_${Date.now()}`;
+  private _pendingMessage = '';
 
   constructor(
     private api: ApiService,
+    private auth: AuthService,
     private cd: ChangeDetectorRef
   ) {}
 
@@ -64,6 +67,7 @@ export class CopilotPanelComponent {
     };
 
     this.messages = [...this.messages, userMessage];
+    this._pendingMessage = this.inputText;
     this.loading = true;
 
     const payload = {
@@ -71,7 +75,7 @@ export class CopilotPanelComponent {
       message: this.inputText,
       vehicle_id: this.vehicleId,
       image_base64: this.imageBase64 ?? undefined,
-      user_id: "1" // Placeholder user ID dynamically
+      user_id: this.auth.getUserId() ?? undefined
     };
 
     this.api.askAgent(payload).subscribe({
@@ -105,7 +109,7 @@ export class CopilotPanelComponent {
 
     const payload = {
       session_id: this.sessionId,
-      message: 'Vehicle selected',
+      message: this._pendingMessage || `Show full status for vehicle ${vehicle.vehicle_code}`,
       vehicle_id: this.vehicleId
     };
 

@@ -6,7 +6,7 @@
     <form (ngSubmit)="login()">
       <div class="field">
         <label>Email</label>
-        <input type="email" [(ngModel)]="email" name="email" placeholder="admin@gmail.com">
+        <input type="email" [(ngModel)]="email" name="email" placeholder="your@email.com">
       </div>
 
       <div class="field">
@@ -14,19 +14,17 @@
         <input type="password" [(ngModel)]="password" name="password" placeholder="•••••••">
       </div>
 
-      <p class="error" *ngIf="error">{{error}}</p>
+      @if (error) {
+        <p class="error">{{ error }}</p>
+      }
 
-      <button 
-        type="submit"
-        class="btn-primary" 
-        [disabled]="!email || !password">
+      <button type="submit" class="btn-primary" [disabled]="!email || !password">
         Login
       </button>
     </form>
 
     <div class="signup-link">
-      New user?
-      <a routerLink="/signup">Create account</a>
+      New user? <a routerLink="/signup">Create account</a>
     </div>
   </div>
 </div>

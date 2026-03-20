@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';   // ✅ important
-import { Router } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
@@ -8,37 +7,35 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule], // ✅ add this
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-
-  email: string = '';
-  password: string = '';
+  email = '';
+  password = '';
   error = '';
+  loading = false;
 
-  constructor(private router: Router, private auth : AuthService) {}
+  constructor(private router: Router, private auth: AuthService) {}
 
-  async login() {
-
+  login(): void {
     if (!this.email || !this.password) {
-      this.error = 'Email and Password required';
+      this.error = 'Email and password are required';
       return;
     }
+    this.error = '';
+    this.loading = true;
 
-    try {
-      const data={
-        email:this.email,
-        password:this.password
-      }
-
-      this.auth.login(data).subscribe(res=>{
+    this.auth.login({ email: this.email, password: this.password }).subscribe({
+      next: (res) => {
         this.auth.saveToken(res.access_token);
         this.router.navigate(['/home']);
-      })
-    } catch (e) {
-      this.error = 'Invalid email or password';
-    }
+      },
+      error: (err) => {
+        this.error = err?.error?.detail ?? 'Invalid email or password';
+        this.loading = false;
+      },
+    });
   }
 }
